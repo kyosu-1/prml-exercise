@@ -1,0 +1,64 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{jsarticle}
+\usepackage[dvipdfmx]{graphicx}
+
+\usepackage{amsmath,amssymb}
+\usepackage{physics}
+
+\title{PRML4.5}
+
+\date{\today}
+\begin{document}
+\maketitle
+
+(問題)
+
+(4.20),(4.23)と(4.24)を使って、フィッシャーの判別規準(4.25)が(4.26)の形で書けることを示せ。
+\\ 
+
+(解答)
+
+\begin{align*}
+    y={\bf w}^\top{\bf x} \tag{4.20}
+\end{align*}
+\begin{align*}
+    m_k={\bf w}^\top{\bf m}_k\tag{4.23}
+    \end{align*}
+\begin{align*}
+    s_k^2 = \sum_{n \in C_k} (y_n - m_k)^2 \tag{4.24}
+\end{align*}
+\begin{align*}
+    J(\bf w) = \cfrac{(m_2 - m_1)^2}{s_1^2 + s_2^2} \tag{4.25}
+\end{align*}
+\begin{align*}
+    J({\bf w})=\frac{{\bf w}^\top{\bf S}_{\rm B}{\bf w}}{{\bf w}^\top{\bf S}_{\rm W}{\bf w}}\tag{4.26}
+    \end{align*}
+\begin{align*}
+    {\bf S}_{\rm B}=({\bf m}_2-{\bf m}_1)({\bf m}_2-{\bf m}_1)^\top\tag{4.27}
+    \end{align*}
+\begin{align*}
+    {\bf S}_{\rm W}=\sum_{n\in{\mathcal C}_1}({\bf x}-{\bf m}_1)({\bf x}-{\bf m}_1)^\top+\sum_{n\in{\mathcal C}_2}({\bf x}-{\bf m}_2)({\bf x}-{\bf m}_2)^\top\tag{4.28}
+    \end{align*}
+
+式(4.23),(4.24)より
+\begin{align*}
+    s_k^2
+    &=\sum_{n\in{\mathcal C}_k}({\bf w}^\top{\bf x}_n-{\bf w}^\top{\bf m}_k)^2\\
+    &=\sum_{n\in{\mathcal C}_k}({\bf w}^\top({\bf x}_n-{\bf m}_k))^2\\
+    &=\sum_{n\in{\mathcal C}_k}( ({\bf x}_n-{\bf m}_k) ^\top{\bf w})^2\\
+    &=\sum_{n\in{\mathcal C}_k}( ({\bf x}_n-{\bf m}_k) ^\top{\bf w})^\top( ({\bf x}_n-{\bf m}_1) ^\top{\bf w})\\
+    &=\sum_{n\in{\mathcal C}_k}{\bf w}^\top({\bf x}_n-{\bf m}_k)({\bf x}_n-{\bf m}_k) ^\top{\bf w}
+    \end{align*}
+以上の式より
+\begin{align*}
+    J({\bf w})
+    &=\frac{({\bf w}^\top{\bf m}_2-{\bf w}^\top{\bf m}_1)^2}{\displaystyle\sum_{n\in{\mathcal C}_1}{\bf w}^\top({\bf x}_n-{\bf m}_1)({\bf x}_n-{\bf m}_1) ^\top{\bf w}+\displaystyle\sum_{n\in{\mathcal C}_2}{\bf w}^\top({\bf x}_n-{\bf m}_2)({\bf x}_n-{\bf m}_2) ^\top{\bf w}}\\
+    &=\frac{{\bf w}^\top({\bf m}_2-{\bf m}_1)({\bf m}_2-{\bf m}_1){\bf w}}{{\bf w}^\top\left(\displaystyle\sum_{n\in{\mathcal C}_1}({\bf x}_n-{\bf m}_1)({\bf x}_n-{\bf m}_1) ^\top+\displaystyle\sum_{n\in{\mathcal C}_2}({\bf x}_n-{\bf m}_2)({\bf x}_n-{\bf m}_2) ^\top\right){\bf w}}\\
+    &=\frac{{\bf w}^\top{\bf S}_{\rm B}{\bf w}}{{\bf w}^\top{\bf S}_{\rm W}{\bf w}}
+    \end{align*}
+
+(補足)
+フィッシャーの線形判別とはクラス間分散とクラス内分散の比を最大にするような$\bf w$で射影し、入力データの次元を減らすような特徴量抽出の手法である。
+あくまで特徴量抽出の手法であって、これ自体が識別を行うものではないが、しきい値を決めることで識別を行うことが出来る。 \\
+\end{document}

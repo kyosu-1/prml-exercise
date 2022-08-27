@@ -1,0 +1,82 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{jsarticle}
+\usepackage[dvipdfmx]{graphicx}
+
+\usepackage{amsmath,amssymb}
+\usepackage{physics}
+
+\title{PRML4.5}
+
+\date{\today}
+\begin{document}
+\maketitle
+
+(問題)
+
+(4.57)と(4.58)を使って、ガウス確率密度分布を用いた2クラス生成モデルにおけるクラスの事後確率に対する(4.65)の結果を
+導出せよ。また、パラメータ$\bf w$と$w_0$に対する結果(4.66)と(4.67)を検証せよ。
+\\
+
+(解答)
+\begin{align*}
+    p(C_1 | \bf x) = \sigma (a) \tag{4.57}
+\end{align*}
+
+\begin{align*}
+    a = \ln \cfrac{p(\bf x | C_1)p(C_1)}{p(\bf x | C_2)p(C_2)} \tag{4.58}
+\end{align*}
+
+\begin{align*}
+    p(\bf x|C_k) = \cfrac{1}{(2 \pi)^{\frac{D}{2}}} \cfrac{1}{|\Sigma|^{\frac{1}{2}}} \exp \left\{ -\cfrac{1}{2} (\bf x - \bf{\mu}_k)^\top \Sigma^{-1} (\bf x - \bf \mu_k) \right\} \tag{4.64}
+\end{align*}
+これらの式を利用して(4.65)を導出する。
+
+\begin{align*}
+    a
+    &= \ln \cfrac{p(\bf x | C_1)p(C_1)}{p(\bf x | C_2)p(C_2)} \\
+    &= \ln \cfrac{p(\bf x | C_1)}{p(\bf x | C_2)} + \cfrac{\ln p(C_1)}{\ln p(C_2)} \\
+    &= \ln \cfrac{\exp \left\{ -\cfrac{1}{2} (\bf x - \bf{\mu}_1)^\top \Sigma^{-1} (\bf x - \bf \mu_1) \right\}}{\exp \left\{ -\cfrac{1}{2} (\bf x - \bf{\mu}_2)^\top \Sigma^{-1} (\bf x - \bf \mu_2) \right\}} + \cfrac{\ln p(C_1)}{\ln p(C_2)} \\
+    &=  -\cfrac{1}{2} (\bf x - \bf{\mu}_1)^\top \Sigma^{-1} (\bf x - \bf \mu_1) + \cfrac{1}{2} (\bf x - \bf{\mu}_2)^\top \Sigma^{-1} (\bf x - \bf \mu_2) + \cfrac{\ln p(C_1)}{\ln p(C_2)} \\
+    &= \bf \mu_1^{\top} \Sigma^{-1} \bf x - \cfrac{1}{2} \bf \mu_1^{\top} \Sigma^{-1}\bf \mu_1 - \bf \mu_2^{\top} \Sigma^{-1} \bf x + \cfrac{1}{2} \bf \mu_2^{\top} \Sigma^{-1}\bf \mu_2 + \cfrac{\ln p(C_1)}{\ln p(C_2)} \\
+    &= (\mu_1 - \mu_2)^{\top} \Sigma^{-1} \bf x - \cfrac{1}{2} \bf \mu_1^{\top} \Sigma^{-1}\bf \mu_1 + \cfrac{1}{2} \bf \mu_2^{\top} \Sigma^{-1}\bf \mu_2 + \cfrac{\ln p(C_1)}{\ln p(C_2)} \\
+    &= (\Sigma^{-1}(\mu_1 - \mu_2))^{\top} \bf x - \cfrac{1}{2} \bf \mu_1^{\top} \Sigma^{-1}\bf \mu_1 + \cfrac{1}{2} \bf \mu_2^{\top} \Sigma^{-1}\bf \mu_2 + \cfrac{\ln p(C_1)}{\ln p(C_2)} (\because (\Sigma^{-1})^{\top} = \Sigma^{-1}) \\
+\end{align*}
+よって、
+\begin{align*}
+    \bf w = \Sigma^{-1}(\mu_1 - \mu_2) \tag{4.66}
+\end{align*}
+\begin{align*}
+    w_0 = - \cfrac{1}{2} \bf \mu_1^{\top} \Sigma^{-1}\bf \mu_1 + \cfrac{1}{2} \bf \mu_2^{\top} \Sigma^{-1}\bf \mu_2 + \cfrac{\ln p(C_1)}{\ln p(C_2)} \tag{4.67}
+\end{align*}
+と定義すれば
+\begin{align*}
+    p(C_1 |\bf x) = \sigma (\bf w^{\top} \bf x + w_0) \tag{4.65}
+\end{align*}
+が導ける。
+
+(補足: 分類問題におけるアプローチについて) \\
+分類問題では以下の3つのアプローチが考えられる \\
+(a)生成モデル \\
+生成モデルはデータが生成される分布を推定し、ベイズの定理からその分布を用いてクラス事後確率を求める。
+クラス事後確率を求めたら、決定理論により新たな入力$\bf x$のクラス属性を決めることが出来る。
+すわなち分類対象となるデータがどのような確率モデルから生成されたかをモデル化し，そのモデルに基づいて分類を行う手法。\\
+例: ナイーブベイズモデル \\
+(b)識別モデル \\
+識別モデルは最初にクラス事後確率を決める推論問題を解き、次に決定理論により新たな入力$\bf x$のクラス属性を決める。クラス識別モデルでは
+事後確率を直接モデル化している。 \\
+例: ロジスティック回帰、ソフトマックス交差エントロピーを使ったニューラルネットワーク
+(c)識別関数 \\
+各入力$\bf x$から直接クラスラベルを割り当てる関数$f(\bf x)$を見つける \\
+例: SVM
+\\
+生成モデルを使う利点としてはデータの周辺分布を求めることができて，それを外れ値検出や、人口データの生成に利用することが出来る。
+一方で識別モデルと比較して計算コストが高いというデメリットもある。計算コストの観点でいうと確率分布の推定を行わない識別関数が最も
+低いが、出力に対して確率的な解釈が得られないため、外れ値検出といったようなことができない。\\
+\\
+まとめると \\
+計算コスト：$生成モデル > 識別モデル > 識別関数$ \\
+解釈性 : $識別関数 > 識別モデル > 生成モデル$ \\
+どのアプローチを採択するのが最適かはデータに依る。
+
+\end{document}

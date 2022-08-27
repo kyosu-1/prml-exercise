@@ -1,0 +1,33 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{jsarticle}
+\usepackage[dvipdfmx]{graphicx}
+
+\usepackage{amsmath,amssymb}
+\usepackage{physics}
+
+\title{PRML4.16}
+
+\date{\today}
+\begin{document}
+\maketitle
+
+(問題)\\
+$t= 0$または$t = 1$に対応する2クラスの1つに属することが知られている各観測値$x_n$
+における2値分類問題を考える。このとき、学習データがときどき間違ったラベルを付けられるため、学習データの収集手順は完全なものではないと仮定する。
+すべてのデータ$x_n$に対し、クラスラベルの値$t_n$を与える代わりに、$t_n=1$となる確率を表現する値$π_n$を与える。
+確率モデル$p(t=1|\phi)$が与えられた場合、そのようなデータ集合に適切な対数尤度関数を記述せよ。
+
+(解答) \\
+クラスラベル$t_n$の代わりに$t_n=1$となる確率$\pi_n$が与えられているので、
+確率モデル$p(t=1|\phi)$のもとで$t_n$が生起される確率は、
+\begin{align*}
+    p(t_n) = p(t_n=1|\phi_n)^{\pi_n} \{ 1 - p(t_n=1|\phi_n) \}^{1-\pi_n}
+\end{align*}
+よってデータ集合に適切な対数尤度関数は
+
+\begin {align*}
+\ln p\left(\mathbf{t} | \phi\right)=\sum_{n=1}^N \{\pi_{n} \ln p(t_n=1|\phi_n)+(1-\pi_{n} ) \ln \left(1-p(t_n=1|\phi_n)\right)\}
+\end {align*}
+
+\end{document}

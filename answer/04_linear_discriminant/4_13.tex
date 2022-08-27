@@ -1,0 +1,41 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{jsarticle}
+\usepackage[dvipdfmx]{graphicx}
+
+\usepackage{amsmath,amssymb}
+\usepackage{physics}
+
+\title{PRML4.13}
+
+\date{\today}
+\begin{document}
+\maketitle
+
+(問題)\\
+ロジスティックシグモイドの微分に対する結果(4.88)を使って、
+ロジスティック回帰モデルに対する誤差関数(4.90)の微分が、(4.91)で与えられることを示せ。
+\begin{align*}
+    \frac{{\rm d}\sigma}{{\rm d}a}=\sigma(1-\sigma)\tag{4.88}
+    \end{align*}
+\begin{align*}
+    E({\bf w})=-\ln p({\bf t}|{\bf w})=-\sum_{n=1}^N(t_n\ln y_n-(1-t_n)\ln(1-y_n))\tag{4.90}
+    \end{align*}
+\begin{align*}
+    \nabla E({\bf w})=\sum_{n=1}^N(y_n-t_n){\boldsymbol\phi}_n\tag{4.91}
+    \end{align*}
+\\
+(解答) \\
+以下のように計算できる。
+\begin{align*}
+    \nabla E({\bf w})
+    &=\frac{\partial}{\partial{\bf w}}E({\bf w})\\
+    &=\frac{\partial}{\partial{\bf w}}\left(-\sum_{n=1}^N(t_n\ln y_n+(1-t_n)\ln(1-y_n))\right)\\
+    &=-\sum_{n=1}^N\left(\frac{\partial}{\partial{\bf w}}t_n\ln y_n+\frac{\partial}{\partial{\bf w}}(1-t_n)\ln(1-y_n)\right)\\
+    &=-\sum_{n=1}^N\left(\frac{\partial}{\partial y_n}t_n\ln y_n\frac{\partial}{\partial a}\sigma(a)\frac{\partial}{\partial{\bf w}}{\bf w}^\top{\boldsymbol\phi}_n+\frac{\partial}{\partial y_n}(1-t_n)\ln(1-y_n)\frac{\partial}{\partial a}\sigma(a)\frac{\partial}{\partial{\bf w}}{\bf w}^\top{\boldsymbol\phi}_n\right)\\
+    &=-\sum_{n=1}^N\left(\frac{t_n}{y_n}y_n(1-y_n){\boldsymbol\phi}_n+(-1)\frac{1-t_n}{1-y_n}y_n(1-y_n){\boldsymbol\phi}_n\right)\\
+    &=-\sum_{n=1}^N\left(t_n(1-y_n){\boldsymbol\phi}_n-(t_n-1)y_n{\boldsymbol\phi}_n\right)\\
+    &=-\sum_{n=1}^N(t_n-t_ny_n+t_ny_n-y_n){\boldsymbol\phi}_n\\
+    &=\sum_{n=1}^N(y_n-t_n){\boldsymbol\phi}_n\\
+    \end{align*}
+\end{document}

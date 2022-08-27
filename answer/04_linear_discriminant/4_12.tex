@@ -1,0 +1,39 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{jsarticle}
+\usepackage[dvipdfmx]{graphicx}
+
+\usepackage{amsmath,amssymb}
+\usepackage{physics}
+
+\title{PRML4.12}
+
+\date{\today}
+\begin{document}
+\maketitle
+
+(問題)\\
+(4.59)で定義されるロジスティックシグモイド関数の微分に関する関係(4.88)を検証せよ。
+\begin{align*}
+    \sigma(a)=\frac{1}{1+\exp(-a)}\tag{4.59}
+    \end{align*}
+\begin{align*}
+    \frac{{\rm d}\sigma}{{\rm d}a}=\sigma(1-\sigma)\tag{4.88}
+\end{align*}
+\\
+(解答)
+
+$\sigma(a)$を$a$で微分すると
+
+\begin{align*}
+    \cfrac{d \sigma}{da}
+    &= \cfrac{\exp(-a)}{(1 + \exp(-a))^2} \\
+    &= \cfrac{(1 + \exp(-a)) - 1}{(1 + \exp(-a))^2} \\
+    &= \cfrac{1}{1 + \exp(-a)} - \cfrac{1}{(1 + \exp(-a))^2} \\
+    &= \sigma - \sigma^2 \\
+    &= \sigma (1 - \sigma)
+\end{align*}
+
+Q.E.D
+
+\end{document}
