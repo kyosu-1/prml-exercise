@@ -1,0 +1,173 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{jsarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{physics}
+\usepackage{amsmath,amssymb}
+
+\title{3.21}
+
+\date{\today}
+\begin{document}
+\maketitle
+
+(問題)
+
+(3.92) はエピデンスの枠組みにおける最適な$\alpha$の値である。
+この結果は、次の等式を使って導出することもできる。
+
+\begin{align*}
+    \frac{\rm d}{{\rm d}\alpha}\ln|{\bf A}|={\rm Tr}\left({\bf A}^{-1}\frac{\rm d}{{\rm d}\alpha}{\bf A}\right)\tag{3.117}
+    \end{align*}
+
+実対称行列$\bf A$の固有値展開、および$\bf A$の行列式とトレースの固有値表現の標準的結果(付録 C 参照)を用いて、
+この等式を証明せよ。
+そして、(3.117) を用いて (3.86) から (3.92) を導け。
+
+(参考)
+
+\begin{align}
+    {\bf A}=\alpha{\bf I}_M+\beta{\boldsymbol\Phi}^\top{\boldsymbol\Phi}\tag{3.81}
+    \end{align}
+\begin{align}
+    E({\bf m}_N)=\frac{\beta}{2}  \left | \left | \mathbf t-\boldsymbol \Phi \mathbf m_N \right | \right | ^ 2+\frac{\alpha}{2}\mathbf m_N^\top \mathbf m_N\tag{3.82}
+    \end{align}
+\begin{align}
+    \ln p({\bf t}|\alpha,\beta)=\frac{M}{2}\ln\alpha+\frac{N}{2}\ln\beta-E({\bf m}_N)-\frac{1}{2}\ln|{\bf A}|-\frac{N}{2}\ln(2\pi)\tag{3.86}
+    \end{align}
+\begin{align}
+    \gamma=\sum_{i=1}^M\frac{\lambda_i}{\lambda_i+\alpha}\tag{3.91}
+    \end{align}
+\begin{align}
+    \alpha=\frac{\gamma}{{\bf m}_N^\top{\bf m}_N}\tag{3.92}
+    \end{align}
+\begin{align}
+    {\bf A}=\sum_{i=1}^M\lambda_i{\bf u}_i{\bf u}_i^\top\tag{C.45}
+    \end{align}
+\begin{align}
+    {\bf A}^{-1}=\sum_{i=1}^M\frac{1}{\lambda_i}{\bf u}_i{\bf u}_i^\top\tag{C.46}
+    \end{align}
+\begin{align}
+    |{\bf A}|=\prod_{i=1}^M\lambda_i\tag{C.47}
+    \end{align}
+
+(解答)
+
+$\rm A$の固有値を $λ_i(i=1,\ldots,M)$とする。
+また、それぞれの固有値に対応する固有ベクトルを $\bf u_i(i=1,\ldots,M)$とする。式(3.81)より、$\rm A$の固有値はパラメータ$\alpha$に依存することに注意。
+なお、$\rm u_i(i=1,\ldots M)$は正規直行基底であり、
+\begin{align*}
+    \left\{
+        \begin{array}{l}
+            \bf u_i^T \bf u_j = \delta_{ij} \\
+            \sum_{i=1}^M \bf u_i \bf u_i^T = \bf I
+        \end{array}
+        \right.
+\end{align*}
+となる。
+式 (3.117) の左辺$\dfrac{\rm d}{{\rm d}\alpha}\ln|{\bf A}|$を計算する。
+
+\begin{align*}
+    \frac{\rm d}{{\rm d}\alpha}\ln|{\bf A}|
+    &=\frac{\rm d}{{\rm d}\alpha}\ln\underbrace{\prod_{i=1}^M\lambda_i}_{(C.47)}\\
+    &=\frac{\rm d}{{\rm d}\alpha}\sum_{i=1}^M\ln\lambda_i\\
+    &=\sum_{i=1}^M\frac{1}{\lambda_i}\frac{\rm d\lambda_i}{{\rm d}\alpha}\tag{1}
+    \end{align*}
+
+\begin{align*}
+    {\rm Tr}\left({\bf A}^{-1}\frac{\rm d}{{\rm d}\alpha}{\bf A}\right)
+    &={\rm Tr}\Bigg(\underbrace{\sum_{i=1}^M\frac{1}{\lambda_i}{\bf u}_i{\bf u}_i^\top}_{(C.46)}\frac{\rm d}{{\rm d}\alpha}\sum_{j=1}^M\lambda_j{\bf u}_j{\bf u}_j^\top\Bigg)\\
+    &={\rm Tr}\left(\sum_{i=1}^M\frac{1}{\lambda_i}{\bf u}_i{\bf u}_i^\top\sum_{j=1}^M\left(\frac{{\rm d}\lambda_j}{{\rm d}\alpha}{\bf u}_j{\bf u}_j^\top+\lambda_j\frac{{\rm d}{\bf u}_j}{{\rm d}\alpha}{\bf u}_j^\top+\lambda_j{\bf u}_j\frac{{\rm d}{\bf u}_j^\top}{{\rm d}\alpha}\right)\right)\\
+    &={\rm Tr}\left(\sum_{i=1}^M\frac{1}{\lambda_i}{\bf u}_i{\bf u}_i^\top\sum_{j=1}^M\left(\frac{{\rm d}\lambda_j}{{\rm d}\alpha}{\bf u}_j{\bf u}_j^\top+2\lambda_j{\bf u}_j\frac{{\rm d}{\bf u}_j^\top}{{\rm d}\alpha}\right)\right)\\
+    &={\rm Tr}\left(\sum_{i=1}^M\frac{1}{\lambda_i}{\bf u}_i{\bf u}_i^\top\sum_{j=1}^M\frac{{\rm d}\lambda_j}{{\rm d}\alpha}{\bf u}_j{\bf u}_j^\top+\sum_{i=1}^M\frac{1}{\lambda_i}{\bf u}_i{\bf u}_i^\top\sum_{j=1}^M2\lambda_j{\bf u}_j\frac{{\rm d}{\bf u}_j^\top}{{\rm d}\alpha}\right)\\
+    &={\rm Tr}\left(\sum_{i=1}^M\sum_{j=1}^M\frac{1}{\lambda_i}\frac{{\rm d}\lambda_j}{{\rm d}\alpha}{\bf u}_i{\bf u}_i^\top{\bf u}_j{\bf u}_j^\top+\sum_{i=1}^M\sum_{j=1}^M\frac{1}{\lambda_i}2\lambda_j{\bf u}_i{\bf u}_i^\top{\bf u}_j\frac{{\rm d}{\bf u}_j^\top}{{\rm d}\alpha}\right)\\
+    &={\rm Tr}\left(\sum_{i=1}^M\frac{1}{\lambda_i}\frac{{\rm d}\lambda_i}{{\rm d}\alpha}{\bf u}_i{\bf u}_i^\top+\sum_{i=1}^M2{\bf u}_i\frac{{\rm d}{\bf u}_i^\top}{{\rm d}\alpha}\right)\\
+    &={\rm Tr}\left(\sum_{i=1}^M\frac{1}{\lambda_i}\frac{{\rm d}\lambda_i}{{\rm d}\alpha}{\bf u}_i{\bf u}_i^\top\right)+{\rm Tr}\left(\sum_{i=1}^M2{\bf u}_i\frac{{\rm d}{\bf u}_i^\top}{{\rm d}\alpha}\right)\\
+    &=\sum_{i=1}^M\frac{1}{\lambda_i}\frac{{\rm d}\lambda_i}{{\rm d}\alpha}+{\rm Tr}\left(\sum_{i=1}^M\left(\frac{{\rm d}{\bf u}_i}{{\rm d}\alpha}{\bf u}_i^\top+{\bf u}_i\frac{{\rm d}{\bf u}_i^\top}{{\rm d}\alpha}\right)\right)\\
+    &=\sum_{i=1}^M\frac{1}{\lambda_i}\frac{{\rm d}\lambda_i}{{\rm d}\alpha}+{\rm Tr}\left(\frac{{\rm d}}{{\rm d}\alpha}\sum_{i=1}^M{\bf u}_i{\bf u}_i^\top\right)\\
+    &=\sum_{i=1}^M\frac{1}{\lambda_i}\frac{{\rm d}\lambda_i}{{\rm d}\alpha}+{\rm Tr}\left(\frac{{\rm d}}{{\rm d}\alpha}{\bf I}\right)\\
+    &=\sum_{i=1}^M\frac{1}{\lambda_i}\frac{{\rm d}\lambda_i}{{\rm d}\alpha}\tag{2}
+\end{align*}
+式(1),(2) より、式 (3.117) が示された。 \\
+式 (3.86) を $\alpha$ で微分して $=0$とおく。
+
+\begin{align*}
+    &\frac{{\rm d}}{{\rm d}\alpha}\ln p({\bf t}|\alpha,\beta)=0\\
+    &\Leftrightarrow\frac{M}{2}\frac{{\rm d}}{{\rm d}\alpha}\ln\alpha+\frac{{\rm d}}{{\rm d}\alpha}E({\bf m}_N)-\frac{1}{2}\frac{{\rm d}}{{\rm d}\alpha}\ln|{\bf A}|=0\\
+    &\Leftrightarrow\frac{M}{2\alpha}+\frac{{\rm d}}{{\rm d}\alpha}\left(\frac{\beta}{2} \left | \left | \mathbf t-\boldsymbol \Phi \mathbf m_N \right | \right | ^ 2+\frac{\alpha}{2}\mathbf m_N^\top \mathbf m_N\right)-\frac{1}{2}{\rm Tr}\left({\bf A}^{-1}\frac{\rm d}{{\rm d}\alpha}{\bf A}\right)=0\\
+    &\Leftrightarrow\frac{M}{2\alpha}+\frac{1}{2}\mathbf m_N^\top \mathbf m_N-\frac{1}{2}{\rm Tr}\left({\bf A}^{-1}\right)=0\ \left(\because \frac{\rm d}{{\rm d}\alpha}{\bf A}={\bf I}\right)\\
+    &\Leftrightarrow \frac{M}{2\alpha}-\frac{1}{2}{\bf m}_N^\top{\bf m}_N-\frac{1}{2}\sum_{i=1}^M\frac{1}{\lambda_i+\alpha}=0\\
+    &\Leftrightarrow\alpha{\bf m}_N^\top{\bf m}_N=M-\sum_{i=1}^M\frac{\alpha}{\lambda_i+\alpha}\\
+    &\Leftrightarrow\alpha{\bf m}_N^\top{\bf m}_N=\sum_{i=1}^M\frac{\lambda_i}{\lambda_i+\alpha}\\
+    &\Leftrightarrow\alpha=\frac{\overbrace{\gamma}^{(3.91)}}{{\bf m}_N^\top{\bf m}_N}\tag{3}\\
+    \end{align*}
+
+式 (3) より、式 (3.92) が示された。
+
+(問題3-23) 
+
+対数周辺尤度関数 (3.86) の β に関する最大化が再推定方程式 (3.95) に
+帰着されることを示すのにすべての段階を、 (3.86) から始めて確かめよ。
+
+(参考)
+
+\begin{align}
+    \ln p({\bf t}|\alpha,\beta)=\frac{M}{2}\ln\alpha+\frac{N}{2}\ln\beta-E({\bf m}_N)-\frac{1}{2}\ln|{\bf A}|-\frac{N}{2}\ln(2\pi) \tag{3.86}
+    \end{align}
+
+\begin{align}
+    \gamma=\sum_{i=1}^M\frac{\lambda_i}{\lambda_i+\alpha}\tag{3.91}
+    \end{align}
+
+\begin{align}
+    \frac{1}{\beta}=\frac{1}{N-\gamma}\sum_{n=1}^N\left(t_n-{\bf m}_N^\top{\boldsymbol\phi}({\bf x}_n)\right)^2\tag{3.95}
+    \end{align}
+
+(解答3-23)
+
+式(3.86)の$\beta$に関する最大化を考えるため、(3.86)を$\beta$に関して偏微分することを考える。
+
+行列$\beta{\boldsymbol\Phi}^\top{\boldsymbol\Phi}$の固有値を$\lambda_i$とする。
+行列$\beta{\boldsymbol\Phi}^\top{\boldsymbol\Phi}$を行列$\bf P$で対角化する。
+
+\begin{align}
+    {\bf P}^{-1}(\beta{\boldsymbol\Phi}^\top{\boldsymbol\Phi}){\bf P}={\rm diag}(\lambda_1,\ldots,\lambda_M)\tag{1}
+    \end{align}
+
+すると、式(3.81)から、行列$\bf A$にも対角化できる。
+
+\begin{align}
+    {\bf P}^{-1}{\bf A}{\bf P}={\rm diag}(\alpha+\lambda_1,\ldots,\alpha+\lambda_M)\tag{2}
+    \end{align}
+
+$\beta{\boldsymbol\Phi}^\top{\boldsymbol\Phi}$の固有値$\beta$に比例するため、$\lambda_i = \beta \aleph_i$とおいて、$\beta$で微分すると
+
+\begin{align}
+    \frac{d}{d\beta}\lambda_i&=\frac{d}{d\beta}\beta a_i \notag \\
+    &=a_i \notag\\
+    &=\frac{\lambda_i}{\beta}\tag{3}
+    \end{align}
+
+となる。
+また式(2)から、$\ln |\bf A|$を$\beta$で微分すると
+
+\begin{align}
+    \frac{d}{d\beta}\ln|{\bf A}|=&\frac{d}{d\beta}\ln\prod_{i=1}^M(\lambda_i+\alpha) \notag \\
+    =&\frac{d}{d\beta}\sum_{i=1}^M\ln(\lambda_i+\alpha) \notag \\
+    =&\sum_{i=1}^M\frac{d}{d(\lambda_i+\alpha)}\ln(\lambda_i+\alpha)\frac{d}{d\beta}(\lambda_i+\alpha) \notag \\
+    =&\frac{1}{\beta}\sum_{i=1}^M\frac{\lambda_i}{\lambda_i+\alpha} \notag \\
+    =&\frac{\gamma}{\beta}\tag{4}
+    \end{align}
+
+対数周辺尤度(3.86)を$\beta$で微分して$=0$とおく。
+
+\begin{align}
+    &\frac{\partial}{\partial\beta}\ln p({\bf t}|\alpha,\beta)=0 \notag \\
+    &\Leftrightarrow\frac{N}{2\beta}-\frac{1}{2}||{\bf t}-{\boldsymbol\Phi}{\bf m}_N||^2-\frac{\gamma}{2\beta}=0 \notag \\
+    &\Leftrightarrow\frac{1}{\beta}=\frac{1}{N-\gamma}||{\bf t}-{\boldsymbol\Phi}{\bf m}_N||^2 \notag \\
+    &\Leftrightarrow\frac{1}{\beta}=\frac{1}{N-\gamma}\sum_{n=1}^N\left(t_n-{\bf m}_N^\top{\boldsymbol\phi}({\bf x}_n)\right)^2\tag{5}
+    \end{align}
+
+式(5)より、式(3.95)が示された。
+
+\end{document}
